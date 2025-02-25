@@ -2,7 +2,7 @@ import { CheckIcon } from '@heroicons/react/20/solid';
 import capsula from '../../src/assets/img/img_capsula_semBk.png';
 import capsulas3 from '../../src/assets/img/3_capsulas_semBkg.png';
 
-function BuyCards() {
+function BuyCards({utmSource,utmCampaign,utmMediu}) {
   const tiers = [
     {
       id: 'tier-hobby',
@@ -75,7 +75,7 @@ function BuyCards() {
               </ul>
 
               <a
-                href={isFeatured ? '/obrigado-compra?utm_term=3capsulas' : '/obrigado-compra?utm_term=capsula'}
+                href={isFeatured ? `/obrigado-compra?&utm_source=${utmSource}&utm_campaing=${utmCampaign}&utm_mediu=${utmMediu}&utm_term=3capsulas` : `/obrigado-compra?&utm_source=${utmSource}&utm_campaing=${utmCampaign}&utm_mediu=${utmMediu}&utm_term=capsula`}
                 aria-describedby={tier.id}
                 className={`mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-10 ${
                   isFeatured

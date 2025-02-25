@@ -17,7 +17,7 @@ const Timer = () => {
       setTimeLeft(timeRef.current);
       
       if (timeRef.current % 5 === 0) {
-        updateLocalStorage(); // Salva a cada 5 segundos para evitar sobrecarga
+        updateLocalStorage();
       }
 
       if (timeRef.current <= 0) {

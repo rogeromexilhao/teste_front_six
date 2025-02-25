@@ -10,6 +10,9 @@ import Fac from './components/Fac';
 function VslPage() {
   const [openCheckout, setOpenCheckout] = useState(false);
   const [showButton, setShowButton] = useState(false);
+  const [utmSource, setUtmSource] = useState("");
+  const [utmCampaign, setUtmCampaign] = useState("");
+  const [utmMedium, setUtmMedium] = useState("");
   const videoTimeRef = useRef(0);
   const location = useLocation();
   const navigate = useNavigate();
@@ -21,15 +24,34 @@ function VslPage() {
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    
-    // Verifica se os parâmetros já existem
-    if (!params.get("utm_source") || !params.get("utm_campaign") || !params.get("utm_medium")) {
-      params.set("utm_source", "YouTube");
-      params.set("utm_medium", "cpc");
-      params.set("utm_campaign", "promo");
+    let updated = false;
 
-      // Redireciona para a mesma rota com os parâmetros de consulta
+    let source = params.get("utm_source");
+    let medium = params.get("utm_medium");
+    let campaign = params.get("utm_campaign");
+
+    if (!source) {
+      source = "YouTube";
+      params.set("utm_source", source);
+      updated = true;
+    }
+    if (!medium) {
+      medium = "cpc";
+      params.set("utm_medium", medium);
+      updated = true;
+    }
+    if (!campaign) {
+      campaign = "promo";
+      params.set("utm_campaign", campaign);
+      updated = true;
+    }
+
+    if (updated) {
       navigate(`/?${params.toString()}`, { replace: true });
+    } else {
+      setUtmSource(source);
+      setUtmMedium(medium);
+      setUtmCampaign(campaign);
     }
 
     const handleScroll = () => {
@@ -75,7 +97,11 @@ function VslPage() {
       {openCheckout && (
         <>
           <Timer />
-          <BuyCards />
+          <BuyCards
+            utmSource={utmSource}
+            utmCampaign={utmCampaign}
+            utmMediu={utmMedium}
+          />
           <Evidences />
           <Fac />
           {showButton && (
