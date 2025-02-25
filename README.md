@@ -10,17 +10,17 @@ IMAGENS: imagens meramente ilustrativas
 VERCEL: https://paginavslsix.vercel.app
 
 # Requisitos 
-react: 19.0.0
-react-dom: 19.0.0
-tailwindcss: 4.0.8
-vite: 6.1.0
-node: 22.14.0
+- react: 19.0.0
+- react-dom: 19.0.0
+- tailwindcss: 4.0.8
+- vite: 6.1.0
+- node: 22.14.0
 
 # Execução Localmente 
-1- Verificar todas as requisições do projeto (node,react,vite...)
-2- Baixar o repositório
-3- Entrar na pasta do projeto e executar no terminal npm install para baixar todas as dependecias de bibliotecas
-4- Iniciar o server com o comando npm run dev
+- Verificar todas as requisições do projeto (node,react,vite...)
+- Baixar o repositório
+- Entrar na pasta do projeto e executar no terminal npm install para baixar todas as dependecias de bibliotecas
+- Iniciar o server com o comando npm run dev
 
 # Decisões Técnicas
 Algumas Decisões Técnicas Importantes que devem ser citadas
