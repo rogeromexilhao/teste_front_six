@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
 import Timer from './components/Timer';
 import BuyCards from './components/BuyCards';
@@ -8,20 +9,36 @@ import Fac from './components/Fac';
 
 function VslPage() {
   const [openCheckout, setOpenCheckout] = useState(false);
-  const videoTimeRef = useRef(0);
   const [showButton, setShowButton] = useState(false);
+  const videoTimeRef = useRef(0);
+  const location = useLocation();
+  const navigate = useNavigate();
 
+
+  //guardar em cache novas renderizações 
   const timeStart = useMemo(() => localStorage.getItem('videoTime') || 0, []);
   const linkVideo = useMemo(() => `https://www.youtube.com/watch?v=DqUnB3ExA-4&start=${timeStart}`, [timeStart]);
 
   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    
+    // Verifica se os parâmetros já existem
+    if (!params.get("utm_source") || !params.get("utm_campaign") || !params.get("utm_medium")) {
+      params.set("utm_source", "YouTube");
+      params.set("utm_medium", "cpc");
+      params.set("utm_campaign", "promo");
+
+      // Redireciona para a mesma rota com os parâmetros de consulta
+      navigate(`/?${params.toString()}`, { replace: true });
+    }
+
     const handleScroll = () => {
       setShowButton(window.scrollY > 1000);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [location.search, navigate]);
 
   const scrollToBuyCards = useCallback(() => {
     window.scrollTo({ top: 850, behavior: "smooth" });
